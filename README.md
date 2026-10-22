@@ -56,11 +56,11 @@ Jika Anda ingin menjalankan aplikasi secara langsung di mesin lokal (local envir
    cd backend
 
  * Buat file .env berdasarkan konfigurasi contoh:
-   PORT=5000
+   PORT=3306
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=password_lokal_anda
-DB_NAME=db_kamus_daerah
+DB_NAME=if0_43177500_db
 
  * Instal dependensi Node.js:
    npm install
@@ -77,7 +77,6 @@ ___
 | Method | Endpoint | Description | Request Body / Params |
 |---|---|---|---|
 | GET | /api/words | Mengambil seluruh daftar kosakata kamus | - |
-|---|---|---|---|
 | POST | /api/words | Menambah atau memperbarui kata (Upsert) | { indonesia, tunjung, benuaq, kenyah, bahau, kutai } |
 ___
 📄 License
