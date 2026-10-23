@@ -4,30 +4,34 @@ services:
   db:
     image: mysql:8.0
     container_name: kamus_mysql
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: 
-      MYSQL_DATABASE: if0_43177500_db
-      MYSQL_USER: if0_43177500
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: kamus_db
+      MYSQL_USER: kamus_user
       MYSQL_PASSWORD: kamus_password
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    command: --default-authentication-plugin=mysql_native_password
 
   backend:
     build: ./backend
     container_name: kamus_backend
-    ports:
-      - "3306:3306"
-    environment:
-      - DB_HOST=sql308.infinityfree.com 
-      - DB_USER=if0_43177500
-      - DB_PASSWORD=kamus_password
-      - DB_NAME=if0_43177500_db
-      - PORT=3306
+    restart: unless-stopped
     depends_on:
       - db
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: kamus_user
+      DB_PASSWORD: kamus_password
+      DB_NAME: kamus_db
 
 volumes:
   mysql_data:
